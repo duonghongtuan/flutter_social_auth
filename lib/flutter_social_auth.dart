@@ -140,7 +140,7 @@ class _LoginViewState extends State<LoginView> {
             ),
             duration: const Duration(milliseconds: 300));
       case StatusPageLogin.signin:
-        return Text("");
+        return const Text("");
     }
   }
 

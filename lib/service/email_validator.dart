@@ -1,11 +1,11 @@
 import 'dart:core';
 
-enum Type { None, Alphabetic, Numeric, AlphaNumeric }
+enum Type { none, alphabetic, numeric, alphanumeric }
 
 class EmailValidator {
   static int _index = 0;
   static const String _atomCharacters = "!#\$%&'*+-/=?^_`{|}~";
-  static Type _domainType = Type.None;
+  static Type _domainType = Type.none;
 
   static bool _isDigit(String c) {
     return c.codeUnitAt(0) >= 48 && c.codeUnitAt(0) <= 57;
@@ -29,12 +29,12 @@ class EmailValidator {
   static bool _isDomain(String c, bool allowInternational) {
     if (c.codeUnitAt(0) < 128) {
       if (_isLetter(c) || c == '-') {
-        _domainType = Type.Alphabetic;
+        _domainType = Type.alphabetic;
         return true;
       }
 
       if (_isDigit(c)) {
-        _domainType = Type.Numeric;
+        _domainType = Type.numeric;
         return true;
       }
 
@@ -42,7 +42,7 @@ class EmailValidator {
     }
 
     if (allowInternational) {
-      _domainType = Type.Alphabetic;
+      _domainType = Type.alphabetic;
       return true;
     }
 
@@ -52,26 +52,26 @@ class EmailValidator {
   static bool _isDomainStart(String c, bool allowInternational) {
     if (c.codeUnitAt(0) < 128) {
       if (_isLetter(c)) {
-        _domainType = Type.Alphabetic;
+        _domainType = Type.alphabetic;
         return true;
       }
 
       if (_isDigit(c)) {
-        _domainType = Type.Numeric;
+        _domainType = Type.numeric;
         return true;
       }
 
-      _domainType = Type.None;
+      _domainType = Type.none;
 
       return false;
     }
 
     if (allowInternational) {
-      _domainType = Type.Alphabetic;
+      _domainType = Type.alphabetic;
       return true;
     }
 
-    _domainType = Type.None;
+    _domainType = Type.none;
 
     return false;
   }
@@ -125,9 +125,9 @@ class EmailValidator {
       return false;
     }
 
-    // Note: by allowing AlphaNumeric,
+    // Note: by allowing alphanumeric,
     // we get away with not having to support punycode.
-    if (_domainType == Type.Numeric) {
+    if (_domainType == Type.numeric) {
       return false;
     }
 

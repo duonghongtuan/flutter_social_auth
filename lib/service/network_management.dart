@@ -1,6 +1,6 @@
 // ignore_for_file: body_might_complete_normally_catch_error, constant_identifier_names, unused_element, non_constant_identifier_names
 
-import 'package:flutter_social_auth/views/verify_view.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 import '../flutter_social_auth.dart';
@@ -18,13 +18,17 @@ class NetworkManagement {
           'Content-Type': 'application/json',
         },
       ).catchError((e) {
-        print("verifyCode failed: $e \n $url");
+        if (kDebugMode) {
+          print("verifyCode failed: $e \n $url");
+        }
       });
       if (res.statusCode == 200) {
         return true;
       }
     } catch (e) {
-      print('error email code $e');
+      if (kDebugMode) {
+        print('error email code $e');
+      }
     }
     return false;
   }
@@ -39,7 +43,9 @@ class NetworkManagement {
           'Content-Type': 'application/json',
         },
       ).catchError((e) {
-        print("verifyCode failed: $e \n $url");
+        if (kDebugMode) {
+          print("verifyCode failed: $e \n $url");
+        }
       });
       // print("XXXX ${res?.statusCode} - ${res.body}");
       if (res.statusCode == 200) {
@@ -48,12 +54,16 @@ class NetworkManagement {
         try {
           status = int.parse(res.body) == 1 ? VerifyCodeStatus.done : VerifyCodeStatus.expired;
         } catch (e) {
-          print("parse error: $e");
+          if (kDebugMode) {
+            print("parse error: $e");
+          }
         }
         return status;
       }
     } catch (e) {
-      print('verifyCode $e');
+      if (kDebugMode) {
+        print('verifyCode $e');
+      }
     }
 
     return status;
