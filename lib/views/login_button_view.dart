@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
-import 'dart:io';
 import 'package:flutter/material.dart';
 
 import '../flutter_social_auth.dart';
@@ -14,7 +13,7 @@ class LoginButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-            onTap: onPress,
+            onTap: ()=> onPress(typeLogin),
             child: Container(
                 decoration: BoxDecoration(
                     color: backgroundColor,
@@ -25,7 +24,7 @@ class LoginButton extends StatelessWidget {
                 padding: const EdgeInsets.all(12),   
                 alignment: Alignment.center,
                 child: SizedBox(
-                    width: Platform.isIOS ? 190 : 200,
+                    width: 200,
                     child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.start,

@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "701223855552",
+    "project_id": "flutter-social-login-e8add",
+    "storage_bucket": "flutter-social-login-e8add.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:701223855552:android:de8b67dabd52165fe1d425",
+        "android_client_info": {
+          "package_name": "com.example.example"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "701223855552-erajn62dk7c53oml5on26fo3erskpk93.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCstfoHhQjWFX1OVE7lQoJiLN9lgv6e6Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "701223855552-erajn62dk7c53oml5on26fo3erskpk93.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "701223855552-71e5nhdivp39dvf7mrqod5v8ug65g2np.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.example"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

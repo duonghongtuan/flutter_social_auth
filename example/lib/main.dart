@@ -11,9 +11,24 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(    
-      home: LoginView(),
+    return MaterialApp(
+      home: LoginView(
+        domain: 'https://flutter',
+        appName: "apptesst",
+        onLogin: (UserAuthInfo? userAuthInfo) {
+          print("debug");
+          if (userAuthInfo != null) {
+            print(userAuthInfo.email);
+          }
+        },
+        onSendEmailVerifyCode: (result, email) {
+          print(email);
+        },
+        onVerifyCode: (verifyCodeStatus) {
+          print(verifyCodeStatus.name);
+        },
+        logoWidget: const Text('Logo App', style: TextStyle(fontSize: 40, fontWeight: FontWeight.w500, color: Colors.red),),
+      ),
     );
   }
 }
-
