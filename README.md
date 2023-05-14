@@ -10,7 +10,7 @@ For general information about developing packages, see the Dart guide for
 and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages).
 -->
-
+## 0.0.2
 Flutter package for login with social accounts like google, facebook, apple
 
 ## Getting started
