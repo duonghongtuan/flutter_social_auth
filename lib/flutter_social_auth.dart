@@ -51,8 +51,8 @@ typedef OnLogin = Function(UserAuthInfo? userAuthInfo);
 typedef OnSendEmailVerifyCode = Function(bool result, String email);
 typedef OnVerifyCode = Function(VerifyCodeStatus verifyCodeStatus);
 
-class LoginView extends StatefulWidget {
-  LoginView(
+class AuthView extends StatefulWidget {
+  AuthView(
       {super.key,
       this.listTypeLogin,
       required this.onLogin,
@@ -72,10 +72,10 @@ class LoginView extends StatefulWidget {
   final SocialAuthStyle socialAuthStyle;
   final Widget? logoWidget;
   @override
-  State<LoginView> createState() => _LoginViewState();
+  State<AuthView> createState() => _AuthViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class _AuthViewState extends State<AuthView> {
   TextEditingController emailAdressController = TextEditingController();
   late List<TypeLogin> listTypeLogin;
   final SignIn signIn = SignIn();
