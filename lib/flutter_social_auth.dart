@@ -52,6 +52,8 @@ class SocialAuthStyle {
 typedef OnLogin = Function(UserAuthInfo? userAuthInfo);
 typedef OnSendEmailVerifyCode = Function(bool result, String email);
 typedef OnVerifyCode = Function(VerifyCodeStatus verifyCodeStatus);
+typedef MakeUrlSendEmailCode = String Function(String email);
+typedef MakeUrlVerifyCode = String Function(String email, String code);
 
 class AuthView extends StatefulWidget {
   AuthView(
@@ -59,17 +61,16 @@ class AuthView extends StatefulWidget {
       this.listTypeLogin,
       this.hideLoginWith = false,
       required this.onLogin,
-      required this.appName,
-      required this.domain,
       required this.onSendEmailVerifyCode,
+      required this.makeUrlVerifyCode,
       required this.onVerifyCode,
       socialAuthStyle,
-      this.logoWidget, })
+      this.logoWidget, required this.makeUrlSendEmailCode})
       : socialAuthStyle = socialAuthStyle ?? SocialAuthStyle();
   final List<TypeLogin>? listTypeLogin;
   final bool hideLoginWith;
-  final String appName;
-  final String domain;
+  final MakeUrlVerifyCode makeUrlVerifyCode;
+  final MakeUrlSendEmailCode makeUrlSendEmailCode;
   final OnLogin onLogin;
   final OnSendEmailVerifyCode onSendEmailVerifyCode;
   final OnVerifyCode onVerifyCode;
@@ -105,7 +106,7 @@ class _AuthViewState extends State<AuthView> {
 
   _onSendEmail() {
     networkManagement
-        .sendEmailVerifyCode(domain: widget.domain, email: emailAdressController.text, appName: widget.appName)
+        .sendEmailVerifyCode(widget.makeUrlSendEmailCode(emailAdressController.text))
         .then((result) {
       widget.onSendEmailVerifyCode(result, emailAdressController.text);
       setState(() {
@@ -138,7 +139,7 @@ class _AuthViewState extends State<AuthView> {
             child: VerifyView(
               email: emailAdressController.text,
               socialAuthStyle: widget.socialAuthStyle,
-              domain: widget.domain,
+              makeUrlVerifyCode: widget.makeUrlVerifyCode,
               onVerifyCode: widget.onVerifyCode,
               logoWidget: widget.logoWidget,
             ),
@@ -151,22 +152,18 @@ class _AuthViewState extends State<AuthView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: SafeArea(
-        child: _screen,
-      ),
+      body: _screen,
     );
   }
 
   Container makeLoginView() {
     return Container(
-      padding: EdgeInsets.only(
+      padding: const EdgeInsets.only(
         left: 16,
         right: 16,
-        bottom: MediaQuery.of(context).viewInsets.bottom,
       ),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Expanded(
+        Flexible(
           child: ListView(
             controller: _scrollController,
             children: [

@@ -9,8 +9,7 @@ const int STATUS_EMAIL_VERIFY_NOT_EXISTED = -1;
 const int STATUS_EMAIL_VERIFY_ERROR = -2;
 
 class NetworkManagement {
-  Future<bool> sendEmailVerifyCode({required String domain, required String email, required String appName}) async {
-    String url = _urlSendEmailVerifyCode(email, domain, appName);
+  Future<bool> sendEmailVerifyCode(String url) async {
     try {
       final res = await http.post(
         Uri.parse(url),
@@ -33,8 +32,7 @@ class NetworkManagement {
     return false;
   }
 
-  Future<VerifyCodeStatus> verifyCode({required String email, required String code, required String domain}) async {
-    String url = _urlVerifyCode(email, code, domain);
+  Future<VerifyCodeStatus> verifyCode(String url) async {
     VerifyCodeStatus status = VerifyCodeStatus.error;
     try {
       final res = await http.post(
@@ -67,27 +65,5 @@ class NetworkManagement {
     }
 
     return status;
-  }
-
-  String _urlVerifyCode(String email, String code, String domain) {
-    final url = _Constants.urlVerifyCode(email, code);
-    return "$domain$url";
-  }
-
-  String _urlSendEmailVerifyCode(String email, String domain, String appName) {
-    String url = _Constants.urlSendEmailVerifyCode(email, appName);
-    return "$domain$url";
-  }
-}
-
-class _Constants {
-  static String verify_code = "/api/auth?type=verify-code";
-  static String urlVerifyCode(String email, String code) {
-    return "${_Constants.verify_code}&email=$email&code=$code";
-  }
-
-  static String get send_email => "/api/auth?type=send-email";
-  static String urlSendEmailVerifyCode(String email, String appName) {
-    return "${_Constants.send_email}&email=$email&appName=$appName";
   }
 }

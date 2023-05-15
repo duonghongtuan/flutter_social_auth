@@ -10,7 +10,7 @@ For general information about developing packages, see the Dart guide for
 and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages).
 -->
-## 0.0.3
+## 0.0.4
 Flutter package for login with social accounts like google, facebook, apple
 
 ## Getting started
@@ -29,17 +29,28 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
+  String _makeSendEmailCode(String email){
+    return 'https://flutter/$email';
+  }
+
+  String _makeUrlVerifyCode(String email, String code){
+    return 'https://flutter/$email/$code';
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: AuthView(
+        listTypeLogin: const [TypeLogin.google, TypeLogin.apple],
+        hideLoginWith: true,
         onLogin: (userAuthInfo) {
           if (userAuthInfo != null) {
             print(userAuthInfo);
           }
         },
-        appName: 'appName',
-        domain: 'https://domain',
+        makeUrlSendEmailCode: _makeSendEmailCode,
+        makeUrlVerifyCode: _makeUrlVerifyCode,
         onSendEmailVerifyCode: (result, email) {
           if (result) {
             print(email);

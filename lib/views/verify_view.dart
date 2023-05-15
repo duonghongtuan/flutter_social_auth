@@ -9,9 +9,9 @@ class VerifyView extends StatefulWidget {
       required this.email,
       required this.socialAuthStyle,
       required this.onVerifyCode,
-      required this.domain, this.logoWidget});
+      required this.makeUrlVerifyCode, this.logoWidget});
   final String email;
-  final String domain;
+  final MakeUrlVerifyCode makeUrlVerifyCode;
   final SocialAuthStyle socialAuthStyle;
   final OnVerifyCode onVerifyCode;
   final Widget? logoWidget;
@@ -26,7 +26,7 @@ class _VerifyViewState extends State<VerifyView> {
   NetworkManagement networkManagement = NetworkManagement();
 
   _onSendCode(){
-    networkManagement.verifyCode(email: widget.email, code: codeController.text, domain: widget.domain).then((value){
+    networkManagement.verifyCode(widget.makeUrlVerifyCode(widget.email,codeController.text)).then((value){
       widget.onVerifyCode(value);
       setState(() {
         _sendCodeLoading = false;
