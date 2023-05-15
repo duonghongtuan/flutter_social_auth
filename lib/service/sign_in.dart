@@ -32,7 +32,7 @@ class SignIn {
       final googleUser = await _googleSignIn.signIn();
       if (googleUser != null) {
         return UserAuthInfo(
-            id: googleUser.id, typeLogin: typeLogin, email: googleUser.email, photoUrl: googleUser.photoUrl);
+            id: googleUser.id, typeLogin: typeLogin, email: googleUser.email, photoUrl: googleUser.photoUrl, name: googleUser.displayName);
       } else {
         return null;
       }
@@ -84,7 +84,7 @@ class SignIn {
       nonce: nonce,
     );
     if (appleCredential.userIdentifier != null) {
-      return UserAuthInfo(id: appleCredential.userIdentifier!, typeLogin: typeLogin,email: appleCredential.email);
+      return UserAuthInfo(id: appleCredential.userIdentifier!, typeLogin: typeLogin,email: appleCredential.email, name: appleCredential.givenName);
     }else{
       return null;
     }

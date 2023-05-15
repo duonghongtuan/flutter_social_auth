@@ -15,9 +15,9 @@ Flutter package for login with social accounts like google, facebook, apple
 
 ## Getting started
 Follow the instructions:
-google_sign_in [here](https://pub.dev/packages/google_sign_in).
-flutter_facebook_auth [here](https://pub.dev/packages/flutter_facebook_auth).
-sign_in_with_apple [here](https://pub.dev/packages/sign_in_with_apple).
+google_sign_in [here](https://pub.dev/packages/google_sign_in).  
+flutter_facebook_auth [here](https://pub.dev/packages/flutter_facebook_auth).  
+sign_in_with_apple [here](https://pub.dev/packages/sign_in_with_apple).  
 ## Example
 ```dart
 import 'package:flutter/material.dart';

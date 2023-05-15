@@ -23,11 +23,13 @@ class UserAuthInfo {
   String id;
   TypeLogin typeLogin;
   String? email;
+  String? name;
   String? photoUrl;
   UserAuthInfo({
     required this.id,
     required this.typeLogin,
     this.email,
+    this.name,
     this.photoUrl,
   });
 }
@@ -55,15 +57,17 @@ class AuthView extends StatefulWidget {
   AuthView(
       {super.key,
       this.listTypeLogin,
+      this.hideLoginWith = false,
       required this.onLogin,
       required this.appName,
       required this.domain,
       required this.onSendEmailVerifyCode,
       required this.onVerifyCode,
       socialAuthStyle,
-      this.logoWidget})
+      this.logoWidget, })
       : socialAuthStyle = socialAuthStyle ?? SocialAuthStyle();
   final List<TypeLogin>? listTypeLogin;
+  final bool hideLoginWith;
   final String appName;
   final String domain;
   final OnLogin onLogin;
@@ -175,14 +179,17 @@ class _AuthViewState extends State<AuthView> {
                 'account',
                 style: TextStyle(fontSize: 36, fontWeight: FontWeight.w500),
               ),
-              const Padding(
-                padding: EdgeInsets.only(top: 24, bottom: 36),
-                child: Text(
+               Padding(
+                padding: EdgeInsets.only(top: 24, bottom: widget.hideLoginWith ? 10 : 36),
+                child: const Text(
                   'Welcome to our App',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.grey),
                 ),
               ),
-              for (TypeLogin typeLogin in listTypeLogin)
+              widget.hideLoginWith ? const SizedBox() :
+              Column(
+                children: [
+                  for (TypeLogin typeLogin in listTypeLogin)
                 LoginButton(
                   typeLogin: typeLogin,
                   onPress: (typeLogin) async {
@@ -205,6 +212,8 @@ class _AuthViewState extends State<AuthView> {
                     ),
                   ),
                   Expanded(child: Divider()),
+                ],
+              ),
                 ],
               ),
               const Padding(

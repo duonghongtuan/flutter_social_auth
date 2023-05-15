@@ -11,6 +11,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: AuthView(
+        hideLoginWith: true,
         onLogin: (userAuthInfo) {
           if (userAuthInfo != null) {
             print(userAuthInfo);
