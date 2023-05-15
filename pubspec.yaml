@@ -1,6 +1,6 @@
 name: flutter_social_auth
 description: Flutter package for login with social accounts like google, facebook, apple
-version: 0.0.2
+version: 0.0.3
 homepage: https://firebase.flutter.dev/docs/auth/social/
 
 environment:
