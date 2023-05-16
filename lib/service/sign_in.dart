@@ -32,7 +32,11 @@ class SignIn {
       final googleUser = await _googleSignIn.signIn();
       if (googleUser != null) {
         return UserAuthInfo(
-            id: googleUser.id, typeLogin: typeLogin, email: googleUser.email, photoUrl: googleUser.photoUrl, name: googleUser.displayName);
+            id: googleUser.id,
+            typeLogin: typeLogin,
+            email: googleUser.email,
+            photoUrl: googleUser.photoUrl,
+            name: googleUser.displayName);
       } else {
         return null;
       }
@@ -84,9 +88,32 @@ class SignIn {
       nonce: nonce,
     );
     if (appleCredential.userIdentifier != null) {
-      return UserAuthInfo(id: appleCredential.userIdentifier!, typeLogin: typeLogin,email: appleCredential.email, name: appleCredential.givenName);
-    }else{
+      var email = appleCredential.email ?? getEmailFromAppleIdToken(appleCredential.identityToken.toString());
+      return UserAuthInfo(
+          id: appleCredential.userIdentifier!, typeLogin: typeLogin, email: email, name: appleCredential.givenName);
+    } else {
       return null;
     }
+  }
+
+  String decodeJwt(String token) {
+    final parts = token.split('.');
+    if (parts.length != 3) {
+      throw Exception('Invalid token');
+    }
+
+    final payload = parts[1];
+    final normalized = base64Url.normalize(payload);
+    final resp = utf8.decode(base64Url.decode(normalized));
+
+    return resp;
+  }
+
+  String getEmailFromAppleIdToken(String idToken) {
+    final decodedToken = decodeJwt(idToken);
+    final Map<String, dynamic> payload = json.decode(decodedToken);
+    final email = payload['email'] ?? '';
+
+    return email;
   }
 }
