@@ -90,7 +90,7 @@ class SignIn {
     if (appleCredential.userIdentifier != null) {
       var email = appleCredential.email ?? getEmailFromAppleIdToken(appleCredential.identityToken.toString());
       return UserAuthInfo(
-          id: appleCredential.userIdentifier!, typeLogin: typeLogin, email: email, name: appleCredential.givenName);
+          id: appleCredential.userIdentifier!, typeLogin: typeLogin, email: email, name: appleCredential.familyName);
     } else {
       return null;
     }

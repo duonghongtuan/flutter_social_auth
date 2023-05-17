@@ -169,7 +169,7 @@ class _AuthViewState extends State<AuthView> {
             children: [
               widget.logoWidget ?? const SizedBox(),
               const Text(
-                'Login in to your',
+                'Log in to your',
                 style: TextStyle(fontSize: 36, fontWeight: FontWeight.w500),
               ),
               const Text(
@@ -196,10 +196,10 @@ class _AuthViewState extends State<AuthView> {
                   backgroundColor: widget.socialAuthStyle.backgroundColorButtonLogin,
                   textColor: widget.socialAuthStyle.textColorButtonLogin,
                 ),
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.end,
-                children: const [
+                children: [
                   Expanded(child: Divider()),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
