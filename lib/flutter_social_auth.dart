@@ -65,7 +65,8 @@ class AuthView extends StatefulWidget {
       required this.makeUrlVerifyCode,
       required this.onVerifyCode,
       socialAuthStyle,
-      this.logoWidget, required this.makeUrlSendEmailCode})
+      this.logoWidget,
+      required this.makeUrlSendEmailCode})
       : socialAuthStyle = socialAuthStyle ?? SocialAuthStyle();
   final List<TypeLogin>? listTypeLogin;
   final bool hideLoginWith;
@@ -105,9 +106,7 @@ class _AuthViewState extends State<AuthView> {
   }
 
   _onSendEmail() {
-    networkManagement
-        .sendEmailVerifyCode(widget.makeUrlSendEmailCode(emailAdressController.text))
-        .then((result) {
+    networkManagement.sendEmailVerifyCode(widget.makeUrlSendEmailCode(emailAdressController.text)).then((result) {
       widget.onSendEmailVerifyCode(result, emailAdressController.text);
       setState(() {
         _sendEmailLoading = false;
@@ -158,6 +157,7 @@ class _AuthViewState extends State<AuthView> {
 
   Container makeLoginView() {
     return Container(
+      color: widget.socialAuthStyle.backgroundColor,
       padding: const EdgeInsets.only(
         left: 16,
         right: 16,
@@ -176,43 +176,44 @@ class _AuthViewState extends State<AuthView> {
                 'account',
                 style: TextStyle(fontSize: 36, fontWeight: FontWeight.w500),
               ),
-               Padding(
+              Padding(
                 padding: EdgeInsets.only(top: 24, bottom: widget.hideLoginWith ? 10 : 36),
                 child: const Text(
                   'Welcome to our App',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.grey),
                 ),
               ),
-              widget.hideLoginWith ? const SizedBox() :
-              Column(
-                children: [
-                  for (TypeLogin typeLogin in listTypeLogin)
-                LoginButton(
-                  typeLogin: typeLogin,
-                  onPress: (typeLogin) async {
-                    final userAuthInfo = await signIn.signIn(typeLogin);
-                    widget.onLogin(userAuthInfo);
-                  },
-                  backgroundColor: widget.socialAuthStyle.backgroundColorButtonLogin,
-                  textColor: widget.socialAuthStyle.textColorButtonLogin,
-                ),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Expanded(child: Divider()),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                    child: Text(
-                      'or',
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.grey),
+              widget.hideLoginWith
+                  ? const SizedBox()
+                  : Column(
+                      children: [
+                        for (TypeLogin typeLogin in listTypeLogin)
+                          LoginButton(
+                            typeLogin: typeLogin,
+                            onPress: (typeLogin) async {
+                              final userAuthInfo = await signIn.signIn(typeLogin);
+                              widget.onLogin(userAuthInfo);
+                            },
+                            backgroundColor: widget.socialAuthStyle.backgroundColorButtonLogin,
+                            textColor: widget.socialAuthStyle.textColorButtonLogin,
+                          ),
+                        const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Expanded(child: Divider()),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                              child: Text(
+                                'or',
+                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.grey),
+                              ),
+                            ),
+                            Expanded(child: Divider()),
+                          ],
+                        ),
+                      ],
                     ),
-                  ),
-                  Expanded(child: Divider()),
-                ],
-              ),
-                ],
-              ),
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 16),
                 child: Text('Email Address', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
