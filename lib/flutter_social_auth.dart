@@ -66,7 +66,8 @@ class AuthView extends StatefulWidget {
       required this.onVerifyCode,
       socialAuthStyle,
       this.logoWidget,
-      required this.makeUrlSendEmailCode})
+      required this.makeUrlSendEmailCode,
+      this.header})
       : socialAuthStyle = socialAuthStyle ?? SocialAuthStyle();
   final List<TypeLogin>? listTypeLogin;
   final bool hideLoginWith;
@@ -77,6 +78,7 @@ class AuthView extends StatefulWidget {
   final OnVerifyCode onVerifyCode;
   final SocialAuthStyle socialAuthStyle;
   final Widget? logoWidget;
+  final Widget? header;
   @override
   State<AuthView> createState() => _AuthViewState();
 }
@@ -168,13 +170,18 @@ class _AuthViewState extends State<AuthView> {
             controller: _scrollController,
             children: [
               widget.logoWidget ?? const SizedBox(),
-              const Text(
-                'Log in to your',
-                style: TextStyle(fontSize: 36, fontWeight: FontWeight.w500),
-              ),
-              const Text(
-                'account',
-                style: TextStyle(fontSize: 36, fontWeight: FontWeight.w500),
+              const Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    'Log in to your',
+                    style: TextStyle(fontSize: 36, fontWeight: FontWeight.w500),
+                  ),
+                  Text(
+                    'account',
+                    style: TextStyle(fontSize: 36, fontWeight: FontWeight.w500),
+                  ),
+                ],
               ),
               Padding(
                 padding: EdgeInsets.only(top: 24, bottom: widget.hideLoginWith ? 10 : 36),
