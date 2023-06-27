@@ -85,7 +85,7 @@ class AuthView extends StatefulWidget {
 
 class _AuthViewState extends State<AuthView> {
   TextEditingController emailAdressController = TextEditingController();
-  late List<TypeLogin> listTypeLogin;
+  List<TypeLogin> listTypeLogin = [];
   final SignIn signIn = SignIn();
   final _formEmailKey = GlobalKey<FormState>();
   bool _sendEmailLoading = false;
@@ -100,10 +100,6 @@ class _AuthViewState extends State<AuthView> {
       listTypeLogin = [TypeLogin.google, TypeLogin.facebook, TypeLogin.apple];
     } else {
       listTypeLogin = widget.listTypeLogin!;
-    }
-
-    if (Platform.isAndroid) {
-      listTypeLogin.removeWhere((element) => element == TypeLogin.apple);
     }
   }
 
